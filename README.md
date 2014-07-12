@@ -35,8 +35,8 @@ Key | Type | Default | Description |
 `port` | Number | `8000` | port of the webserver
 `livereload` | Boolean/Number | `false` | whether to use livereload (custom port also possible as value, default is `35729`)
 `fallback` | String | `undefined` | file to fall back to (relative to webserver root)
+`middleware` | Array | `[]` | array of connect middleware functions
 `https` | Boolean | `false` | *feature coming soon*
-`middleware` | Array | `[]` | *feature coming soon*
 
 ## FAQ
 
