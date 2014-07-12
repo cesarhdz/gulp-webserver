@@ -84,4 +84,28 @@ describe('gulp-webserver', function() {
 
   });
 
+
+  it('should proccess middleware', function(done){
+
+    function customMiddleware(req, res, next){
+        res.end('Hello Middleware');
+    }
+
+    stream = webserver({
+      middleware : [customMiddleware]
+    })
+
+    stream.write(rootDir);
+
+    request('http://localhost:8000')
+      .get('/every/path/should/work')
+      .expect(200, /Hello Middleware/)
+      .end(function(err) {
+        if (err) return done(err);
+        done(err);
+      });
+
+  });
+
+
 });

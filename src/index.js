@@ -7,6 +7,7 @@ var connectLivereload = require('connect-livereload');
 var tinyLr = require('tiny-lr');
 var watch = require('node-watch');
 var fs = require('fs');
+var util = require('util');
 
 module.exports = function(options) {
 
@@ -15,6 +16,7 @@ module.exports = function(options) {
   var host = options.host || 'localhost';
   var port = options.port || 8000;
   var livereloadPort = options.livereload || false;
+  var middleware = util.isArray(options.middleware) ? options.middleware : [];
 
   if (livereloadPort === true) {
     livereloadPort = 35729;
@@ -39,6 +41,11 @@ module.exports = function(options) {
   var stream = through.obj(function(file, enc, callback) {
 
     app.use(serveStatic(file.path));
+
+    // Connect Middleware
+    middleware.forEach(function(m){
+      app.use(m);
+    })
 
     if (fallback) {
 
